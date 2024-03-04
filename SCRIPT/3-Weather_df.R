@@ -22,20 +22,20 @@ dn$station = 'donegal_n'
 dn = dplyr::select(dn, c(station,date,rain,temp,rhum,msl,wdsp,wddir))
 
 ###RBIND
-wea = rbind(ga,be,ds,dn)
+w = rbind(ga,be,ds,dn)
 
 #CHANGE DATE FORMATS AND SPLIT IN TWO COLUMNS
-wea$date = ymd_hm(wea$date)
-wea = wea[date>'2022-01-01 00:00']
+w$date = ymd_hm(w$date)
+w = w[date>'2022-01-01 00:00']
 
-wea$hour = format(ymd_hms(wea$date),'%H:%M')
-wea$date = format(ymd_hms(wea$date),'%Y-%m-%d')
+w$hour = format(ymd_hms(w$date),'%H:%M')
+w$date = format(ymd_hms(w$date),'%Y-%m-%d')
 
-wea = dplyr::select(wea, c(station,date,hour,temp,rain,rhum,msl,wdsp,wddir))
-head(wea)
+w = dplyr::select(w, c(station,date,hour,temp,rain,rhum,msl,wdsp,wddir))
+head(w)
 
 #WRITE IT DOWN
-fwrite(wea, 'C:/Users/G00399072/OneDrive - Atlantic TU/Desktop/call_patterning/weather_data.csv')
+fwrite(w, 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/weather_data.csv')
 
 #date:  -  Date and Time (utc)
 #"rain:  -  Precipitation Amount (mm)	  "
@@ -44,3 +44,7 @@ fwrite(wea, 'C:/Users/G00399072/OneDrive - Atlantic TU/Desktop/call_patterning/w
 #msl:   -  Mean Sea Level Pressure (hPa)
 #wdsp:  -  Mean Wind Speed (knot)
 #wddir: -  Predominant Wind Direction (degree)
+
+w = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/weather_data.csv')
+
+#END

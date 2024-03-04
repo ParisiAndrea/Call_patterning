@@ -1,0 +1,2 @@
+batch,number,site,aru_id,prefix,n_coor,w_coor,start_date,start_time,end_date,end_time,sampling_rate_khz,hpf,schedule,compression,sd_slotA,gbA,sd_slotB,gbB,start_battery,end_battery,battery_consumed,habitat,photo,deployers,landowner,corncrake_recorded,hard_disk,backup,notes
+13,12,GAA Gortnamalin,R07,S4A16872,55.352138,-7.345437,2022-04-21,10:06,2022-04-30,09:40,44.1,220,always,W4V-8,S07,66,E,E,6.4,5.2,1.2,GS2,Y,AP,,1,HDD3,,Corncrake calling
