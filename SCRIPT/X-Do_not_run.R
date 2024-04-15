@@ -45,6 +45,9 @@ head(w)
 #wdsp:  -  Mean Wind Speed (knot)
 #wddir: -  Predominant Wind Direction (degree)
 
+#CREATE 1-HOUR TIMEBIN
+w$time_bin = as.POSIXct(paste(w$date,w$hour, sep = ' '), 'UTC')
+
 w = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/weather_data.csv')
 
 #END

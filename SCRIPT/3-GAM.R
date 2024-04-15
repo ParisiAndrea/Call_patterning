@@ -4,15 +4,17 @@ sapply(c('data.table','dplyr','mgcv','tidyverse','sjPlot','performance',
        require, 
        character.only=T)
 
+#reformat variables
 g$site = factor(g$site)
 g$days = as.numeric(g$days)
 g$hour = as.numeric(str_sub(g$hour,1,2))
 
+#run gam
 mx = gam(call_duration ~
            s(temp, bs = 'tp') +
            s(rhum, bs = 'tp') +
            s(wdsp, bs = 'tp') +
-           s(days, bs = 'cr') +
+           s(days, bs = 'tp') +
            s(hour, bs = 'cc') +
            s(fraction, bs = 'cc') +
            s(site, bs = 're'),

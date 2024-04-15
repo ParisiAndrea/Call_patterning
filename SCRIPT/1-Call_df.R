@@ -5,49 +5,57 @@ sapply(c('data.table','dplyr','tidyr','lubridate','ggpubr'),
 
 #read CSV
 k = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/call_data.csv')
-p = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/deploy_info.csv')
+p = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/deploy_info.csv') %>%
+  mutate(folder = paste(batch,sd_slotA,sep = '_')) %>% # same variable as in k for merging
+  dplyr::select(c(folder,site)) #keep relevant columns only
 
-p$folder = paste(p$batch,p$sd_slotA,sep = '_')
-
-#p = dplyr::select(p, c(folder,site,n_coor,w_coor,start_date:end_time))
-p = dplyr::select(p, c(folder,site))
-
+#combine k with deployment info 
 k = merge(k,p, by = 'folder')
 
 #reclass variable
-k$population = factor(k$population)
 k$site = factor(k$site)  
 k$folder = factor(k$folder)
 k$file_name = factor(k$file_name)
 k$date = as.Date(k$date)
-#k$hour = as.ITime(k$hour)
 k$rival = as.factor(replace_na(k$rival, 0))
 k$notes = as.character(k$notes)
 
-#filter out some columns
-#k = k[,-c('call_start','call_end')] #no need for these
-
-#new variable with
+#format time variables with posixct extension
 k$time_start = as.POSIXct(paste(k$date, k$time_start, sep = ' '), 'GMT')
 k$time_end = as.POSIXct(paste(k$date, k$time_end, sep = ' '), 'GMT')
 
-#extract hour and date info
+#extract hour info to calculate call durations
 k$hour_start = hour(k$time_start)
 k$hour_end = hour(k$time_end)
 
 #correct for over-midnight time and recalculate duration
-#calculate duration
+#calculate call duration
 f = k %>%
   mutate(time_end = case_when(
     hour_start == 23 & hour_end == 0 ~ time_end + (24*60*60),
     TRUE ~ time_end),
-    call_duration = as.numeric(time_end-time_start),
-    id = 1:n()) %>%
+    call_duration = as.numeric(time_end-time_start)) %>%
   
   #define order and arrangement
-  select(id,population,site,folder,file_name,date,time_start,time_end,call_duration,rival) %>%
+  select(site,folder,file_name,date,time_start,time_end,call_duration,rival) %>%
   arrange(folder,time_start)
 
 head(f)
+
+#CREATE 1-HOUR TIME BIN 
+f$time_bin = strftime(floor_date(f$time_start, "1 hour"),format="%H:%M")
+f$time_bin = as.POSIXct(paste(as.Date(f$time_start),f$time_bin, sep = ' '), 'UTC')
+
+#ASSIGN POPULATION TO MERGE WITH WEATHER INFO
+f = f %>%
+  mutate(population = case_when(
+    site == 'GAA Gortnamalin' ~ 'donegal_n',
+    site == 'Binghamstown cemetery' ~ 'belmullet',
+    site == 'Mushroom factory' ~ 'belmullet',
+    site == "Boyle's Island" ~ 'donegal_s',
+    site == 'Malin Head' ~ 'donegal_n',
+    site == 'Termoncarragh' ~ 'belmullet',
+    site == 'Omey Island (holiday house)' ~ 'galway'
+  ))
 
 #END
