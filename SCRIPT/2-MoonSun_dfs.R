@@ -21,4 +21,12 @@ g = merge(a,m, by = 'id')
 #extract Julian date
 g[, days := as.numeric(format(g$time_start, "%j"))]
 
+g = g %>%
+  group_by(file_name) %>%
+  mutate(across(temp:days, \(x) mean(x)),
+         call_duration = sum(call_duration)) %>%
+  filter(!duplicated(file_name)) %>%
+  dplyr::select(population,site,date,hour,time_bin,temp:days,call_duration) %>%
+  as.data.table()
+  
 #END
