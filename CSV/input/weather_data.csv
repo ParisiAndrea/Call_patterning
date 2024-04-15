@@ -1,4 +1,4 @@
-station,date,hour,temp,rain,rhum,msl,wdsp,wddir
+population,date,hour,temp,rain,rhum,msl,wdsp,wddir
 galway,2022-01-01,01:00,12.2,0,86,995.8,23,130
 galway,2022-01-01,02:00,12.3,0.1,88,994.1,25,140
 galway,2022-01-01,03:00,12.6,0.1,87,992.8,27,150
