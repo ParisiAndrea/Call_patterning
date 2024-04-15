@@ -35,7 +35,7 @@ w = dplyr::select(w, c(station,date,hour,temp,rain,rhum,msl,wdsp,wddir))
 head(w)
 
 #WRITE IT DOWN
-fwrite(w, 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/weather_data.csv')
+#fwrite(w, 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/weather_data.csv')
 
 #date:  -  Date and Time (utc)
 #"rain:  -  Precipitation Amount (mm)	  "

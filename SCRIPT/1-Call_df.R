@@ -16,7 +16,7 @@ k$folder = factor(k$folder)
 k$file_name = factor(k$file_name)
 k$date = as.Date(k$date)
 k$hour = as.ITime(k$hour)
-k$rival = replace_na(k$rival, 0)
+k$rival = as.factor(replace_na(k$rival, 0))
 k$notes = as.character(k$notes)
 
 #filter out some columns
@@ -26,7 +26,7 @@ k = k[,-c('call_start','call_end')] #no need for these
 k$time_start = as.POSIXct(paste(k$date, k$time_start, sep = ' '), 'GMT')
 k$time_end = as.POSIXct(paste(k$date, k$time_end, sep = ' '), 'GMT')
 
-#extract hour info
+#extract hour and date info
 k$hour_start = hour(k$time_start)
 k$hour_end = hour(k$time_end)
 
@@ -40,7 +40,7 @@ f = k %>%
     id = 1:n()) %>%
   
   #define order and arrangement
-  select(id,population,site,folder,file_name,time_start,time_end,call_duration,rival,notes) %>%
+  select(id,population,site,folder,file_name,date,time_start,time_end,call_duration,rival,notes) %>%
   arrange(folder,time_start)
 
 head(f)
