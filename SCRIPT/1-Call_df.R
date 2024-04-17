@@ -34,7 +34,7 @@ f = k %>%
   mutate(time_end = case_when(
     hour_start == 23 & hour_end == 0 ~ time_end + (24*60*60),
     TRUE ~ time_end),
-    call_duration = as.numeric(time_end-time_start)) %>%
+    call_duration = as.numeric(as.ITime(call_duration))) %>%
   
   #define order and arrangement
   select(site,folder,file_name,date,time_start,time_end,call_duration,rival) %>%
