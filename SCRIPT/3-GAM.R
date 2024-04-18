@@ -11,12 +11,13 @@ g$hour = as.numeric(str_sub(g$hour,1,2))
 
 #run gam
 mx = gam(log(call_duration) ~
+           s(temp, bs ='tp') +
            s(wdsp, bs = 'tp') +
-           s(days, bs = 'tp') +
-           s(hour, bs = 'cc') +
            s(fraction, bs ='tp') +
-           #te(temp,days, bs = c('tp','tp')) +
-           #te(days,fraction, bs = c('tp','tp')) +
+           s(hour, bs = 'cc') +
+           s(days, bs = 'tp') +
+           te(temp, days, bs = c('tp','tp')) +
+           te(fraction, days, bs = c('tp','tp')) +
            s(site, bs = 're'),
          data = g,
          method ='REML',
