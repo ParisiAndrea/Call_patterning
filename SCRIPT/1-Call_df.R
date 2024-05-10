@@ -52,7 +52,7 @@ f = f %>%
     site == 'GAA Gortnamalin' ~ 'donegal_n',
     site == 'Binghamstown cemetery' ~ 'belmullet',
     site == 'Mushroom factory' ~ 'belmullet',
-    site == "Boyle's Island" ~ 'donegal_s',
+    site == "Boyle's Island" ~ 'donegal_n',
     site == 'Malin Head' ~ 'donegal_n',
     site == 'Termoncarragh' ~ 'belmullet',
     site == 'Omey Island (holiday house)' ~ 'galway'

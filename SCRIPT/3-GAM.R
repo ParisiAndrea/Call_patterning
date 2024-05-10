@@ -17,6 +17,7 @@ mx = gam(log(call_duration) ~
            s(fraction, bs ='tp') +
            s(hour, bs = 'cc') +
            s(days, bs = 'tp') +
+           te(hour, days, bs = c('cc','tp')) +
            te(temp, days, bs = c('tp','tp')) +
            te(fraction, days, bs = c('tp','tp')) +
            s(site, bs = 're'),
