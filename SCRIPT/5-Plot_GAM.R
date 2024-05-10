@@ -11,7 +11,7 @@ px = gratia::draw(mx)
 pl = data.frame()
 
 #PLOT DF
-for (i in 1:(length(px)-4)) { #for each smooth (minus random effect and 2 interactions)
+for (i in 1:(length(px)-4)) { #for each smooth (minus random effect and 3 interactions)
   
   colnames(px[[i]]$data)[8] <-'pred'
   
