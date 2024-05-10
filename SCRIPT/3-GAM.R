@@ -8,8 +8,7 @@ sapply(c('data.table','dplyr','mgcv','tidyverse','sjPlot','performance','ggplot2
 g$site = factor(g$site)
 g$days = as.numeric(g$days)
 g$hour = as.numeric(str_sub(g$hour,1,2))
-g$rain = factor(ifelse(g$rain>0, 1, 0))
-  
+
 #run gam
 mx = gam(log(call_duration) ~
            s(temp, bs ='tp') +
