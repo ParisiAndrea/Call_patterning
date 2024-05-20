@@ -58,4 +58,4 @@ ggsave('Plot.png',
 
 #END
 
-
+fwrite(pl, 'C:/Users/G00399072/OneDrive - Atlantic TU/Desktop/Guest_lecture_Tralee/presentation/dfs/call_gam.csv')

@@ -37,25 +37,13 @@ f = k %>%
     call_duration = as.numeric(as.ITime(call_duration))) %>%
   
   #define order and arrangement
-  select(site,folder,file_name,date,time_start,time_end,call_duration,rival) %>%
+  dplyr::select(site,folder,file_name,date,time_start,time_end,call_duration,rival) %>%
   arrange(folder,time_start)
 
 head(f)
 
 #CREATE 1-HOUR TIME BIN 
-f$time_bin = strftime(floor_date(f$time_start, "1 hour"),format="%H:%M")
-f$time_bin = as.POSIXct(paste(as.Date(f$time_start),f$time_bin, sep = ' '), 'UTC')
-
-#ASSIGN POPULATION TO MERGE WITH WEATHER INFO
-f = f %>%
-  mutate(population = case_when(
-    site == 'GAA Gortnamalin' ~ 'donegal_n',
-    site == 'Binghamstown cemetery' ~ 'belmullet',
-    site == 'Mushroom factory' ~ 'belmullet',
-    site == "Boyle's Island" ~ 'donegal_n',
-    site == 'Malin Head' ~ 'donegal_n',
-    site == 'Termoncarragh' ~ 'belmullet',
-    site == 'Omey Island (holiday house)' ~ 'galway'
-  ))
+f$time = strftime(floor_date(f$time_start, "1 hour"),format="%H:%M:%S")
+f$time = as.POSIXct(paste(as.Date(f$date),f$time, sep = ' '), 'UTC')
 
 #END
