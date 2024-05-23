@@ -5,13 +5,14 @@ sapply(c('data.table','dplyr','mgcv','tidyverse','sjPlot','performance','ggplot2
        character.only=T)
 
 #extract plotting info from model
-px = gratia::draw(mx)
+px = gratia::draw(mx2)
+length(px) #right terms in the model
 
 #create empty list to keep all plots
 pl = data.frame()
 
 #PLOT DF
-for (i in 1:(length(px)-4)) { #for each smooth (minus random effect and 3 interactions)
+for (i in 1:(length(px)-3)) { #for each smooth (minus random effect and 3 interactions)
   
   colnames(px[[i]]$data)[8] <-'pred'
   
@@ -28,7 +29,7 @@ for (i in 1:(length(px)-4)) { #for each smooth (minus random effect and 3 intera
 
 #plot
 p = ggplot(pl, aes(x,fit)) +
-  geom_line(lwd = 2) +
+  geom_line(lwd = 1) +
   geom_ribbon(aes(x = x, y = fit, ymin=low.conf.int, ymax=up.conf.int),
               lty = 2,
               alpha=0.1,
@@ -36,11 +37,12 @@ p = ggplot(pl, aes(x,fit)) +
               fill = 'black') +
   facet_wrap(~smooth, 
              scales = 'free',
-             labeller = as_labeller(c('s(days)'='Days',
+             labeller = as_labeller(c('s(days)'= 'Days **',
                                       's(fraction)'='Moon fraction',
-                                      's(hour)'='Hour',
-                                      's(temp)'='Temperature (°C)',
-                                      's(wdsp)'='Wind speed (km/h)'))) +
+                                      's(hour)'='Hour ***',
+                                      's(cloud)' = 'Cloud *',
+                                      's(temp1)'='Temperature (°C) *',
+                                      's(wdsp)'='Wind speed (km/h) ***'))) +
   ylab('Log(Call duration)') +
   theme_classic(15) +
   theme(axis.title.x = element_blank())
@@ -48,14 +50,14 @@ p = ggplot(pl, aes(x,fit)) +
 p
 
 #save
-ggsave('Plot.png',
+ggsave('Plot.pdf',
        p,
-       path = 'Your_path',
-       width = 180,
-       height = 120,
+       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS',
+       width = 200,
+       height = 140,
        units = 'mm',
        dpi = 600)
 
 #END
 
-fwrite(pl, 'C:/Users/G00399072/OneDrive - Atlantic TU/Desktop/Guest_lecture_Tralee/presentation/dfs/call_gam.csv')
+#fwrite(pl, 'C:/Users/G00399072/OneDrive - Atlantic TU/Desktop/Guest_lecture_Tralee/presentation/dfs/call_gam.csv')

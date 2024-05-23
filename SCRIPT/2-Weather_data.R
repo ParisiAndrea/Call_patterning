@@ -72,4 +72,7 @@ head(e)
 #merge by time and ID
 a = left_join(e,m,by=c('ID','time'))
 
+a$date = date(a$time)
+a$hour = as.factor(hour(a$time))
+
 #END

@@ -17,10 +17,12 @@ colnames(g)
 #sum call duration for each file
 g = g %>%
   group_by(file_name) %>%
-  mutate(across(temp1:days, \(x) mean(x)),
+  mutate(across(rival:days, \(x) mean(x)),
          call_duration = sum(call_duration),
          hour = hour(time)) %>% #create a new variable called hour
   filter(!duplicated(file_name)) %>%
+  mutate(rival = as.factor(case_when(rival >0 ~ 1,
+                             TRUE ~ 0))) %>%
   #dplyr::select(population,site,date,hour,time_bin,temp:days,call_duration) %>%
   as.data.table()
 
