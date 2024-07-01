@@ -20,7 +20,7 @@ wb = nc_open(paste(getwd(),dd[i],
                     sep = '/'))
 
 #to check single files
-#nc_open(paste(getwd(),'magheroarty.nc',sep='/'))
+#nc_open(paste(getwd(),'falcarragh.nc',sep='/'))
 
 #extract variables
 x = data.frame(
@@ -36,7 +36,7 @@ x = data.frame(
   cloud = ncvar_get(wb,varid = 'tcc'), #cloud amount in %
   #cloud_h = ncvar_get(wb,varid = 'cbh'), #cloud height
   prec = ncvar_get(wb,varid = 'stl1'), #total precipitation
-  lai = ncvar_get(wb,varid = 'lai_lv'), #leaf area index
+  #lai = ncvar_get(wb,varid = 'lai_lv'), #leaf area index
   site = str_remove(dd[i],
                     pattern = '.nc'))
 

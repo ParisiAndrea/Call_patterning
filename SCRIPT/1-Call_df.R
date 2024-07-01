@@ -48,3 +48,6 @@ f$time = as.POSIXct(paste(as.Date(f$date),f$time, sep = ' '), 'UTC')
 f$hour = as.factor(hour(f$time))
 
 #END
+
+
+unique(f$site)

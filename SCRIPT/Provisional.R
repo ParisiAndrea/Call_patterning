@@ -66,7 +66,7 @@ t = t %>%
 t$site = as.factor(t$site)
 t$days = as.numeric(format(t$fake_date, "%j"))
 hist(t$call_duration)
-#t= na.omit(t)
+t = na.omit(t)
 
 mh = gam(call_duration ~
            s(temp1, bs ='tp') +
@@ -83,8 +83,8 @@ mh = gam(call_duration ~
 
 summary(mh)
 res = simulateResiduals(mh, plot = T, re.form = NULL)
-draw(mh)
-appraise(mh)
+gratia::draw(mh)
+gratia::appraise(mh)
 
 plot(residuals(mh))
 shapiro.test(residuals(mh))

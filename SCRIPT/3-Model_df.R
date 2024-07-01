@@ -28,6 +28,8 @@ g = g %>%
 
 head(g)
 
+g = g %>% dplyr::select(-c(hour.x,hour.y))
+
 table(is.na(g))# no NAs
 
 #END

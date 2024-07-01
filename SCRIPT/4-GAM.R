@@ -20,7 +20,6 @@ mx = gam(call_duration ~
            s(days, bs= 'tp',k=30) +
            ti(cloud,temp1,bs = c('tp','tp')) +
            ti(fraction,cloud, bs = c('tp','tp')) +
-           #rival +
            s(site, bs = 're'),
          data = g,
          knots=list(hour=c(0,23)),
