@@ -16,19 +16,14 @@ colnames(g)
 
 #sum call duration for each file
 g = g %>%
-  group_by(file_name) %>%
-  mutate(across(rival:days, \(x) mean(x)),
-         call_duration = sum(call_duration),
-         hour = hour(time)) %>% #create a new variable called hour
-  filter(!duplicated(file_name)) %>%
-  mutate(rival = as.factor(case_when(rival >0 ~ 1,
-                             TRUE ~ 0))) %>%
+  group_by(folder,site,time) %>%
+  mutate(across(temp1:angle, \(x) mean(x)),
+         call_duration = sum(call_duration)) %>% #create a new variable called hour
+  filter(!duplicated(time)) %>%
   #dplyr::select(population,site,date,hour,time_bin,temp:days,call_duration) %>%
   as.data.table()
 
 head(g)
-
-g = g %>% dplyr::select(-c(hour.x,hour.y))
 
 table(is.na(g))# no NAs
 

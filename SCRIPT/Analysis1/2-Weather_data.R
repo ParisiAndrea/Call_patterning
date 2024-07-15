@@ -35,7 +35,7 @@ x = data.frame(
   #temp2 = ncvar_get(wb,varid = 't2m')-273.15, #temperature at 2m
   cloud = ncvar_get(wb,varid = 'tcc'), #cloud amount in %
   #cloud_h = ncvar_get(wb,varid = 'cbh'), #cloud height
-  prec = ncvar_get(wb,varid = 'stl1'), #total precipitation
+  #prec = ncvar_get(wb,varid = 'stl1'), #total precipitation
   #lai = ncvar_get(wb,varid = 'lai_lv'), #leaf area index
   site = str_remove(dd[i],
                     pattern = '.nc'))
@@ -72,7 +72,11 @@ head(e)
 #merge by time and ID
 a = left_join(e,m,by=c('ID','time'))
 
-a$date = date(a$time)
-a$hour = as.factor(hour(a$time))
+a[,ID:=NULL]
+
+#a$date = date(a$time)
+#a$hour = as.factor(hour(a$time))
+
+head(a)
 
 #END
