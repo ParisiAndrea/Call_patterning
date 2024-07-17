@@ -5,15 +5,14 @@ head(mx_comb,6)
 
 #run gam with only + varables
 mx2 = gam(call_duration ~
-            s(temp1, bs ='tp') +
-            s(wdsp, bs = 'tp') +
-            s(cloud, bs = 'tp', k=20) +
-            s(fraction, bs ='tp', k=50) +
-            s(hour,bs='cc',k=24) +
-            s(days, bs= 'tp',k=30) +
-            ti(cloud,temp1,bs = c('tp','tp'))+
-            ti(fraction,cloud, bs = c('tp','tp')) +
-            rival +
+            s(temp2, bs ='cr', k = 20) +
+            s(wdsp, bs = 'cr', k = 20) +
+            #s(cloud, bs = 'tp', k=20) +
+            s(fraction, bs ='cr', k=20) +
+            s(hour,bs='cc',k=8) +
+            s(days, bs= 'cr',k=12) +
+            #ti(cloud,temp2,bs = c('tp','tp'))+
+            ti(fraction,cloud, bs = c('cr','cr')) +
             s(site, bs = 're'),
          data = g,
          na.action = "na.fail",
@@ -29,10 +28,10 @@ print(plot(getViz(mx2), allTerms = TRUE), pages = 1)
 concurvity(mx2, full = F)
 
 #DHARMa
-res = simulateResiduals(mx2, plot = T)
+res = simulateResiduals(mx2, plot = T, re.form = NULL)
 
 {
-  plotResiduals(res, form = g$temp1)
+  plotResiduals(res, form = g$temp2)
   plotResiduals(res, form = g$wdsp)
   plotResiduals(res, form = g$cloud)
   plotResiduals(res, form = g$fraction)
@@ -45,7 +44,5 @@ DHARMa::testDispersion(res)
 DHARMa::testOutliers(res)
 
 acf(residuals(mx2))
-
-pcaf(residuals(mx2))
 
 #END

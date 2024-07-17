@@ -12,7 +12,7 @@ length(px) #right terms in the model
 pl = data.frame()
 
 #PLOT DF
-for (i in 1:(length(px)-3)) { #for each smooth (minus random effect and 3 interactions)
+for (i in 1:(length(px)-2)) { #for each smooth (minus random effect and 3 interactions)
   
   colnames(px[[i]]$data)[8] <-'pred'
   
@@ -27,8 +27,10 @@ for (i in 1:(length(px)-3)) { #for each smooth (minus random effect and 3 intera
   
 }
 
+setDT(pl)
+
 #plot
-p = ggplot(pl, aes(x,fit)) +
+p = ggplot(pl[smooth!='s(fraction)'], aes(x,fit)) + #exclude NS effects
   geom_line(lwd = 1) +
   geom_ribbon(aes(x = x, y = fit, ymin=low.conf.int, ymax=up.conf.int),
               lty = 2,
@@ -37,22 +39,26 @@ p = ggplot(pl, aes(x,fit)) +
               fill = 'black') +
   facet_wrap(~smooth, 
              scales = 'free',
-             labeller = as_labeller(c('s(days)'= 'Days **',
+             labeller = as_labeller(c('s(days)'= 'Days ***',
                                       's(fraction)'='Moon fraction',
                                       's(hour)'='Hour ***',
-                                      's(cloud)' = 'Cloud *',
-                                      's(temp1)'='Temperature (°C) *',
-                                      's(wdsp)'='Wind speed (km/h) ***'))) +
+                                      's(temp2)'='Temperature (°C) ***',
+                                      's(wdsp)'='Wind speed (km/h) ***')),
+             nrow = 1,
+             ncol = 4) +
   ylab('Log(Call duration)') +
   theme_classic(15) +
   theme(axis.title.x = element_blank())
 
 p
 
+
+
+
 #save
 ggsave('Plot.pdf',
        p,
-       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS',
+       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
        width = 200,
        height = 140,
        units = 'mm',

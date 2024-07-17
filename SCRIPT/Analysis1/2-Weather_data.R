@@ -31,9 +31,9 @@ x = data.frame(
   wind_n = ncvar_get(wb, varid = 'u10'), #wind X vector
   wind_e = ncvar_get(wb,varid = 'v10'), #wind Y vector
   #temp_skn = ncvar_get(wb,varid = 'skt')-273.15, #skin temperature (from K to C) 
-  temp1 = ncvar_get(wb,varid = 'stl1')-273.15, #soil temperature
-  #temp2 = ncvar_get(wb,varid = 't2m')-273.15, #temperature at 2m
-  cloud = ncvar_get(wb,varid = 'tcc'), #cloud amount in %
+  #temp1 = ncvar_get(wb,varid = 'stl1')-273.15, #soil temperature
+  temp2 = ncvar_get(wb,varid = 't2m')-273.15, #temperature at 2m
+  cloud = ncvar_get(wb,varid = 'tcc')*100, #cloud amount in %
   #cloud_h = ncvar_get(wb,varid = 'cbh'), #cloud height
   #prec = ncvar_get(wb,varid = 'stl1'), #total precipitation
   #lai = ncvar_get(wb,varid = 'lai_lv'), #leaf area index
@@ -52,7 +52,7 @@ rm(x)
 }
 
 #keep relevant variables only
-e = dplyr::select(e, c(site,time,temp1:wdsp))
+e = dplyr::select(e, c(site,time,temp2:wdsp))
 
 head(e) # N=
 

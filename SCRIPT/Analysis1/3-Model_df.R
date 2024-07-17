@@ -17,10 +17,10 @@ colnames(g)
 #sum call duration for each file
 g = g %>%
   group_by(folder,site,time) %>%
-  mutate(across(temp1:angle, \(x) mean(x)),
+  mutate(across(temp2:angle, \(x) mean(x)),
          call_duration = sum(call_duration)) %>% #create a new variable called hour
   filter(!duplicated(time)) %>%
-  #dplyr::select(population,site,date,hour,time_bin,temp:days,call_duration) %>%
+  dplyr::select(folder,file_name,site,time,call_duration,temp2:fraction,days) %>%
   as.data.table()
 
 head(g)

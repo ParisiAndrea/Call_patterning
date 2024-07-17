@@ -9,7 +9,7 @@ sapply(c('data.table','dplyr','mgcv','tidyverse','sjPlot','performance','ggplot2
 #BY DEFAULT FOCUSING ON TEMPERATURE AND DAYS INTERACTION
 
 #EXTRACT INFO FROM GRATIA DRAW FUNCTION
-px = gratia::draw(mx2)[[7]] #check which one is the te(temp,days), 5 in this case 
+px = gratia::draw(mx2)[[6]] #check which one is the te(temp,days), 5 in this case 
 
 #CREATE A DATAFRAME WITH TWO COVARIATE AND RESPONSE
 px2 = data.frame(var1 = px$data$fraction,
@@ -20,12 +20,26 @@ px2 = data.frame(var1 = px$data$fraction,
 px2 = na.omit(px2)
 
 #PLOT
-ggplot(px2, aes(var1,var2, color = call_duration)) +
+p2 = ggplot(px2, aes(var1,var2, color = call_duration)) +
   geom_point() +
-  scale_color_viridis(name = 'Log(Call duration)') +
-  #scale_x_continuous(name = 'Temperature °C') + 
-  #scale_y_continuous(name = 'Days since 01/01') + 
+  scale_color_viridis(name = 'Log(Call duration)',
+                      breaks = c(-0.02,0,0.02,0.04),
+                      limits = c(-0.032,0.04)) +
+  scale_x_continuous(name = 'Fraction') + 
+  scale_y_continuous(name = 'Cloud cover (%)') + 
   theme_ggeffects(20) +
-  theme(legend.position = 'bottom')
+  theme(legend.position = 'bottom',
+        legend.text = element_text(size = 10))
+
+p2
+
+#save
+ggsave('Plot_int.pdf',
+       p2,
+       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
+       width = 200,
+       height = 140,
+       units = 'mm',
+       dpi = 600)
 
 #END
