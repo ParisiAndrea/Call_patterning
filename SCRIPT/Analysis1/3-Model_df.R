@@ -16,7 +16,7 @@ colnames(g)
 
 #sum call duration for each file
 g = g %>%
-  group_by(folder,site,time) %>%
+  group_by(folder,time) %>%
   mutate(across(temp2:angle, \(x) mean(x)),
          call_duration = sum(call_duration)) %>% #create a new variable called hour
   filter(!duplicated(time)) %>%

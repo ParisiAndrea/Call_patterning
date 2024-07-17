@@ -46,4 +46,32 @@ skt = gsub(' 0.000 ', '<0.001', skt)
 
 skt %>% save_kable(file = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS/Table3.html', self_contained = T)
 
-           
+         
+
+
+p = d[["p.table"]]
+
+rownames(p) <- 'Intercept'
+
+p
+
+pkt = p |>
+  kbl(row.names = T,
+      col.names = c(
+        'Estimate',
+        'Standard Error',
+        'Z',
+        'P'),
+      align = 'r',
+      digits = 3,
+      escape = F) |>
+  kable_classic(full_width = F, html_font = "Times New Roman", 'hover')
+
+pkt = gsub(' 0 ', '<0.001', pkt)
+
+pkt
+
+kbl(c(pkt, skt),
+    escape = F)
+
+#%>% save_kable(file = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS/Table.html', self_contained = T)
