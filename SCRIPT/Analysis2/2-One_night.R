@@ -21,8 +21,11 @@ t = t %>%
   group_by(folder,site,night_ID) %>%
   mutate(call_duration = sum(call_duration),
          across(temp2:fraction, \(x) mean(x))) %>%
-  filter(!duplicated(night_ID))
+  filter(!duplicated(night_ID)) %>%
+  as.data.table()
   
 t$site = as.factor(t$site)
 
 #end
+
+unique(g$folder)

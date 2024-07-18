@@ -7,6 +7,8 @@ library(unmarked)
   t$prec = scale(t$prec)
   t$latitude = scale(t$latitude)
   t$fraction = scale(t$fraction)
+  b$grass = scale(b$grass)
+  
 }
 
 #detection
@@ -38,19 +40,18 @@ lat = t %>%
   dplyr::select(1) %>%
   rename_with(~'lat')
 
-#month
-month = t %>%
+#grass
+grass = b %>%
   ungroup() %>%
-  mutate(month = as.factor(month(round_date(time)))) %>%
-  dplyr::select(folder,month) %>%
+  dplyr::select(folder,grass) %>%
   group_by(folder) %>%
   mutate(ID = 1:n()) %>%
-  spread(., folder, month) %>%
+  spread(., folder, grass) %>%
   dplyr::select(-ID) %>%
   t() %>%
   as.data.frame() %>%
   dplyr::select(1) %>%
-  rename_with(~'month')
+  rename_with(~'grass')
 
 ### temperature
 temp = t %>%

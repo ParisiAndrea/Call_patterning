@@ -10,7 +10,7 @@ head(a)
 g = merge(f,a, by = c('site','time'), all.x = T)
 
 #extract Julian date
-g[, days := as.numeric(format(g$time_start, "%j"))]
+g[, days := as.numeric(format(g$time, "%j"))]
 
 colnames(g)
 

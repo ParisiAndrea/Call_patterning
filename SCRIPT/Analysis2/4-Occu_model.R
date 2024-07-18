@@ -1,12 +1,12 @@
-#sc = cbind(lat, month)
+sc = cbind(lat, grass)
 
-ufo = unmarkedFrameOccu(y = det, siteCovs = lat, obsCovs = oc)
+ufo = unmarkedFrameOccu(y = det, siteCovs = sc, obsCovs = oc)
 
 ufo
 summary(ufo)
 
-fm = occu(formula = ~ temp + wdsp + prec + cloud*fraction
-          ~ lat,
+fm = occu(formula = ~ temp + wdsp + cloud*fraction
+          ~ lat + grass,
           data = ufo)
 
 summary(fm)
@@ -19,35 +19,55 @@ fm1 = occu(formula = ~ wdsp + cloud + fraction
 
 summary(fm1)
 
-#plot
+#plots
 
-pl = list()
+b1 = ggplot(plotEffectsData(fm1, 'det', 'wdsp'), aes(covariateValue, Predicted)) +
+  geom_line(size = 1.5) +
+  geom_ribbon(aes(x= covariateValue,
+                  y = Predicted,
+                  ymax = upper,
+                  ymin = lower),
+              alpha = .1) +
+  xlab('Wind speed') +
+  ylab('Detection probability') +
+  theme_classic(15)
 
-for (i in c('wdsp','cloud','fraction')) {
-  
-  ah = plotEffectsData(fm1, 'det', i)
-  
-  d0 = ggplot(ah, aes(covariateValue, Predicted)) +
-    geom_line(size = 1) +
-    geom_ribbon(aes(x= covariateValue,
-                    y = Predicted,
-                    ymax = upper,
-                    ymin = lower),
-                alpha = .1) +
-    xlab(i) +
-    ylab('Detection probability') +
-    theme_classic(15)
-  
-  pl[[i]] = d0
-  
-}
+b1
 
-ggarrange(plotlist = pl,
+b2 = ggplot(plotEffectsData(fm1, 'det', 'cloud'), aes(covariateValue, Predicted)) +
+  geom_line(size = 1.5) +
+  geom_ribbon(aes(x= covariateValue,
+                  y = Predicted,
+                  ymax = upper,
+                  ymin = lower),
+              alpha = .1) +
+  xlab('Cloud cover') +
+  ylab('') +
+  theme_classic(15)
+
+b2
+
+b3 = ggplot(plotEffectsData(fm1, 'det', 'fraction'), aes(covariateValue, Predicted)) +
+  geom_line(size = 1.5) +
+  geom_ribbon(aes(x= covariateValue,
+                  y = Predicted,
+                  ymax = upper,
+                  ymin = lower),
+              alpha = .1) +
+  xlab('Moon fraction') +
+  ylab('') +
+  theme_classic(15)
+
+b3
+
+bb = ggarrange(b1,b2,b3, 
           nrow = 1)
 
-attr(, 'scaled:scale')
-
-t$temp2 * attr(t$temp2, 'scaled:scale') + attr(t$temp2, 'scaled:center')
-
-
-
+#save
+ggsave('Plot_occu.pdf',
+       bb,
+       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
+       width = 300,
+       height = 100,
+       units = 'mm',
+       dpi = 600)
