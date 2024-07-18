@@ -1,5 +1,14 @@
 library(unmarked)
 
+{
+  t$temp2 = scale(t$temp2)
+  t$cloud = scale(t$cloud)
+  t$wdsp = scale(t$wdsp)
+  t$prec = scale(t$prec)
+  t$latitude = scale(t$latitude)
+  t$fraction = scale(t$fraction)
+}
+
 #detection
 det = t %>%
   ungroup() %>%
@@ -29,6 +38,20 @@ lat = t %>%
   dplyr::select(1) %>%
   rename_with(~'lat')
 
+#month
+month = t %>%
+  ungroup() %>%
+  mutate(month = as.factor(month(round_date(time)))) %>%
+  dplyr::select(folder,month) %>%
+  group_by(folder) %>%
+  mutate(ID = 1:n()) %>%
+  spread(., folder, month) %>%
+  dplyr::select(-ID) %>%
+  t() %>%
+  as.data.frame() %>%
+  dplyr::select(1) %>%
+  rename_with(~'month')
+
 ### temperature
 temp = t %>%
   ungroup() %>%
@@ -52,6 +75,18 @@ wdsp = t %>%
   t() %>%
   as.data.frame() %>%
   rename_with(~c(paste('wdsp',seq(1:14),sep='.')))
+
+### prec
+prec = t %>%
+  ungroup() %>%
+  dplyr::select(folder,prec) %>%
+  group_by(folder) %>%
+  mutate(ID = 1:n()) %>%
+  spread(., folder, prec) %>%
+  dplyr::select(-ID) %>%
+  t() %>%
+  as.data.frame() %>%
+  rename_with(~c(paste('prec',seq(1:14),sep='.')))
 
 ### cloud
 cloud = t %>%
@@ -79,10 +114,8 @@ fraction = t %>%
 
 oc = list(temp = temp,
           wdsp = wdsp,
+          prec = prec,
           cloud = cloud,
           fraction = fraction)
 
-
-
-
-
+#END

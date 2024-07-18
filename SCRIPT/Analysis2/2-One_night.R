@@ -25,6 +25,4 @@ t = t %>%
   
 t$site = as.factor(t$site)
 
-t = na.omit(t)
-
 #end
