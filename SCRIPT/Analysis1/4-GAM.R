@@ -16,8 +16,8 @@ mx = bam(call_duration ~
            s(wdsp, bs = 'cr', k = 20) +
            s(cloud, bs = 'cr', k = 20) +
            s(fraction, bs ='cr', k = 20) +
-           s(prec, bs = 'cr', k = 20) +
-           s(hour,bs='cc',k=8) +
+           #s(prec, bs = 'cr', k = 20) +
+           s(hour,bs='cc',k=10) +
            s(days, bs= 'cr',k=12) +
            ti(cloud,temp2,bs = c('cr','cr')) +
            ti(fraction,cloud, bs = c('cr','cr')) +
