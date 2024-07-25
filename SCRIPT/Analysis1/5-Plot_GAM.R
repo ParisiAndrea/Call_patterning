@@ -59,10 +59,10 @@ p
 ggsave('Plot.pdf',
        p,
        path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
-       width = 200,
-       height = 140,
+       width = 300,
+       height = 80,
        units = 'mm',
-       dpi = 600)
+       dpi = 800)
 
 #END
 

@@ -16,9 +16,8 @@ mx = bam(call_duration ~
            s(wdsp, bs = 'cr', k = 20) +
            s(cloud, bs = 'cr', k = 20) +
            s(fraction, bs ='cr', k = 20) +
-           #s(prec, bs = 'cr', k = 20) +
            s(hour,bs='cc',k=10) +
-           s(days, bs= 'cr',k=12) +
+           s(days, bs= 'cr',k=20) +
            ti(cloud,temp2,bs = c('cr','cr')) +
            ti(fraction,cloud, bs = c('cr','cr')) +
            s(site, bs = 're'),
@@ -41,7 +40,7 @@ concurvity(mx, full = FALSE)
 res = simulateResiduals(mx, plot = T)
 
 {
-plotResiduals(res, form = g$temp1)
+plotResiduals(res, form = g$temp2)
 plotResiduals(res, form = g$wdsp)
 plotResiduals(res, form = g$cloud)
 plotResiduals(res, form = g$fraction)

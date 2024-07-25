@@ -1,5 +1,5 @@
 #load packages
-sapply(c('data.table','dplyr','suncalc','lubridate','fitdistrplus'), 
+sapply(c('data.table','dplyr','suncalc','lubridate','fitdistrplus','MuMIn','boot'), 
        require, 
        character.only=T)
 
@@ -11,7 +11,8 @@ u = p %>%
   group_by(folder,site) %>%
   summarise(start = as.POSIXct(paste(start_date, start_time, sep = ' ')),
             end = as.POSIXct(paste(end_date, end_time, sep = ' ')),
-            lat = n_coor) %>%
+            lat = n_coor,
+            lon = w_coor) %>%
   as.data.table()
 
 head(u)
@@ -55,4 +56,4 @@ z$call_duration = replace_na(z$call_duration, 0)
 
 z = dplyr::select(z, c(folder,site,time,days,hour,temp2:fraction,latitude,call_duration))
 
-#end
+#END

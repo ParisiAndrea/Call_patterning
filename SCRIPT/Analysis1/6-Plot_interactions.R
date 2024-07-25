@@ -22,9 +22,7 @@ px2 = na.omit(px2)
 #PLOT
 p2 = ggplot(px2, aes(var1,var2, color = call_duration)) +
   geom_point() +
-  scale_color_viridis(name = 'Log(Call duration)',
-                      breaks = c(-0.02,0,0.02,0.04),
-                      limits = c(-0.032,0.04)) +
+  scale_color_viridis(name = 'Log(Call duration)') +
   scale_x_continuous(name = 'Fraction') + 
   scale_y_continuous(name = 'Cloud cover (%)') + 
   theme_ggeffects(20) +

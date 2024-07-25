@@ -21,7 +21,7 @@ b = shp %>%
   dplyr::select(batch:w_coor,sd_slotA,LEVEL_2_VA,area) %>%
   filter(LEVEL_2_VA == 'Wet Grassland' |
            LEVEL_2_VA == 'Dry Grassland' |
-           LEVEL_2_VA == 'Sand Dunes')
+           LEVEL_2_VA == 'Sand Dunes') %>%
   group_by(batch, site) %>%
   reframe(grass = sum(area)/10^6,
             folder = paste(batch,sd_slotA,sep = '_')) %>%

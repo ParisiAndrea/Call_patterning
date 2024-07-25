@@ -26,6 +26,4 @@ t = t %>%
   
 t$site = as.factor(t$site)
 
-#end
-
-unique(g$folder)
+#END

@@ -14,7 +14,7 @@ library(unmarked)
 #detection
 det = t %>%
   ungroup() %>%
-  mutate(y = case_when(call_duration > 1000 ~ 1,
+  mutate(y = case_when(call_duration > 3600 ~ 1,
                        TRUE ~ 0)) %>%
   dplyr::select(folder,y) %>%
   group_by(folder) %>%
