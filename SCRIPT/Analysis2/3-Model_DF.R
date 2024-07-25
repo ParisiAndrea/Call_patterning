@@ -8,7 +8,6 @@ library(unmarked)
   t$latitude = scale(t$latitude)
   t$fraction = scale(t$fraction)
   b$grass = scale(b$grass)
-  
 }
 
 #detection
@@ -39,6 +38,19 @@ lat = t %>%
   as.data.frame() %>%
   dplyr::select(1) %>%
   rename_with(~'lat')
+
+#elc (fixed covariate)
+elc = t %>%
+  ungroup() %>%
+  dplyr::select(folder,elc) %>%
+  group_by(folder) %>%
+  mutate(ID = 1:n()) %>%
+  spread(., folder, elc) %>%
+  dplyr::select(-ID) %>%
+  t() %>%
+  as.data.frame() %>%
+  dplyr::select(1) %>%
+  rename_with(~'elc')
 
 #grass
 grass = b %>%

@@ -1,5 +1,5 @@
 #load packages
-sapply(c('data.table','dplyr','suncalc','lubridate','fitdistrplus','MuMIn','boot'), 
+sapply(c('data.table','dplyr','suncalc','lubridate','fitdistrplus','MuMIn','boot','ggeffects'), 
        require, 
        character.only=T)
 
@@ -12,7 +12,8 @@ u = p %>%
   summarise(start = as.POSIXct(paste(start_date, start_time, sep = ' ')),
             end = as.POSIXct(paste(end_date, end_time, sep = ' ')),
             lat = n_coor,
-            lon = w_coor) %>%
+            lon = w_coor,
+            ELC = as.factor(ELC)) %>%
   as.data.table()
 
 head(u)
@@ -29,6 +30,7 @@ for (i in 1:nrow(u)) {
   site = u$site[i]
   folder = u$folder[i]
   latitude = u$lat[i]
+  elc = u$ELC[i]
   
   tmp = seq.POSIXt(start,end, by = "hour")
   
@@ -54,6 +56,6 @@ z = merge(z,f, by=c('folder','site','time'),all.x = T)
 #NAs will be created and those represent the time when there are no calls
 z$call_duration = replace_na(z$call_duration, 0)
 
-z = dplyr::select(z, c(folder,site,time,days,hour,temp2:fraction,latitude,call_duration))
+z = dplyr::select(z, c(folder,site,time,days,hour,temp2:fraction,latitude,elc,call_duration))
 
 #END

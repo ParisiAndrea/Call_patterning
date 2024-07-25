@@ -1,4 +1,4 @@
-sc = cbind(lat, grass)
+sc = cbind(lat, elc, grass)
 
 ufo = unmarkedFrameOccu(y = det, siteCovs = sc, obsCovs = oc)
 
@@ -6,7 +6,7 @@ ufo
 summary(ufo)
 
 fm = occu(formula = ~ temp + wdsp + cloud*fraction
-          ~ lat + grass,
+          ~ lat + elc + grass,
           data = ufo)
 
 summary(fm)
