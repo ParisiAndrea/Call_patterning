@@ -13,10 +13,10 @@ wtab = data.frame(
     min(a$temp2)),
   
   'Cloud cover (%)' = c(
-    mean(a$cloud)*100,
-    sd(a$cloud)*100,
-    max(a$cloud)*100,
-    min(a$cloud)*100),
+    mean(a$cloud),
+    sd(a$cloud),
+    max(a$cloud),
+    min(a$cloud)),
   
   'Wind spped (Km/h)' = c(
     mean(a$wdsp),
@@ -45,4 +45,4 @@ kw = wtab %>%
 
 kw
 
-kw %>% save_kable(file = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS/Table1.html', self_contained = T)
+#kw %>% save_kable(file = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS/Table1.html', self_contained = T)
