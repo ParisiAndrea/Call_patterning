@@ -11,7 +11,7 @@ r2 = rbind(as.data.frame(r['state'], check.names = F, col.names = colnames(r['st
       make.row.names = T)
 
 r2$data = rownames(r2)
-r2$data =  c('Intercept','Intercept','Wind speed','Cloud','Fraction','Cloud*Fraction')
+r2$data =  c('Intercept','Intercept','Wind speed','Cloud','Fraction')
 rownames(r2) <- NULL
 r2 = dplyr::select(r2, c('data','Estimate':'P(>|z|)'))
 
@@ -28,9 +28,9 @@ r2k = r2 %>%
   pack_rows('Detection probability p (logit-scale)', 2,5) %>%
   gsub(' 0.000 ', '<0.001', .)
   
+r2k
 
-r2k %>% save_kable(file = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS/Table4.html', self_contained = T)
-
+#r2k %>% save_kable(file = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS/Table4.html', self_contained = T)
 
 #backtransform intercept occupancy probability
 mean(predict(fm1, 'state')$Predicted, na.rm = T)
@@ -40,4 +40,15 @@ mean(predict(fm1, 'state')$SE, na.rm = T)
 mean(predict(fm1, 'det')$Predicted, na.rm = T)
 mean(predict(fm1, 'det')$SE, na.rm = T)
 
+#95% Ci
+margin <- qt(0.975,df=168-1)*sd(predict(fm1, 'det')$Predicted, na.rm = T)/sqrt(168)
+
+mean(predict(fm1, 'det')$Predicted, na.rm = T) - margin
+mean(predict(fm1, 'det')$Predicted, na.rm = T) + margin
+
 #END
+
+r2k = gsub(' 0 ', '<0.001', r2k)
+
+
+kbl(r2)

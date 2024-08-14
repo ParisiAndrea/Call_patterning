@@ -29,8 +29,14 @@ for (i in 1:(length(px)-2)) { #for each smooth (minus random effect and 3 intera
 
 setDT(pl)
 
+pl$smooth = factor(pl$smooth, levels = c('s(temp2)',
+                             's(wdsp)',
+                             's(fraction)',
+                             's(hour)',
+                             's(days)'))
+
 #plot
-p = ggplot(pl[smooth!='s(fraction)'], aes(x,fit)) + #exclude NS effects
+p = ggplot(pl, aes(x,fit)) + #exclude NS effects
   geom_line(lwd = 1) +
   geom_ribbon(aes(x = x, y = fit, ymin=low.conf.int, ymax=up.conf.int),
               lty = 2,
@@ -39,28 +45,25 @@ p = ggplot(pl[smooth!='s(fraction)'], aes(x,fit)) + #exclude NS effects
               fill = 'black') +
   facet_wrap(~smooth, 
              scales = 'free',
-             labeller = as_labeller(c('s(days)'= 'Days ***',
-                                      's(fraction)'='Moon fraction',
+             ncol = 5,
+             labeller = as_labeller(c('s(temp2)'='Temperature (°C) ***',
+                                      's(wdsp)'='Wind speed (km/h) ***',
+                                      's(fraction)'='Moon fraction*',
                                       's(hour)'='Hour ***',
-                                      's(temp2)'='Temperature (°C) ***',
-                                      's(wdsp)'='Wind speed (km/h) ***')),
-             nrow = 1,
-             ncol = 4) +
+                                      's(days)' = 'Days ***'))) +
   ylab('Log(Call duration)') +
-  theme_classic(15) +
-  theme(axis.title.x = element_blank())
+  theme_ggeffects(15) +
+  theme(axis.title.x = element_blank(),
+        plot.margin = unit(c(.2,.8,.2,.2), "cm"))
 
 p
-
-
-
 
 #save
 ggsave('Plot.pdf',
        p,
        path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
-       width = 300,
-       height = 80,
+       width = 350,
+       height = 70,
        units = 'mm',
        dpi = 800)
 

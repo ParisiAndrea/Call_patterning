@@ -34,7 +34,7 @@ for (i in 1:nrow(u)) {
   
   tmp = seq.POSIXt(start,end, by = "hour")
   
-  z = rbind(z, cbind(merge(tmp,folder),site,latitude))
+  z = rbind(z, cbind(merge(tmp,folder),site,latitude,elc))
   
 }
 

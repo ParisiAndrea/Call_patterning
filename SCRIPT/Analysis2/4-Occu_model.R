@@ -6,14 +6,14 @@ ufo
 summary(ufo)
 
 fm = occu(formula = ~ temp + wdsp + cloud*fraction
-          ~ lat + elc + grass,
+          ~ 1,
           data = ufo)
 
 summary(fm)
 plot(residuals(fm))
 dredge(fm)
 
-fm1 = occu(formula = ~ wdsp + cloud*fraction 
+fm1 = occu(formula = ~ wdsp + cloud + fraction 
           ~ 1,
           data = ufo)
 
@@ -59,6 +59,10 @@ b3 = ggplot(plotEffectsData(fm1, 'det', 'fraction'), aes(covariateValue, Predict
   theme_ggeffects(15)
 
 b3
+
+
+gratia::draw(fm1, 'det')
+
 
 bb = ggarrange(b1,b2,b3, 
           nrow = 1)

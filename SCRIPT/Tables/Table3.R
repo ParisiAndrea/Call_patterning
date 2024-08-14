@@ -8,6 +8,7 @@ d = summary(mx2)
 s = as.data.frame(d[['s.table']])
 
 s$F <- as.numeric(d[['chi.sq']])
+d[['']]
 
 rownames(s) <- c(
   's(Temperature)',

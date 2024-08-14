@@ -89,18 +89,6 @@ wdsp = t %>%
   as.data.frame() %>%
   rename_with(~c(paste('wdsp',seq(1:14),sep='.')))
 
-### prec
-prec = t %>%
-  ungroup() %>%
-  dplyr::select(folder,prec) %>%
-  group_by(folder) %>%
-  mutate(ID = 1:n()) %>%
-  spread(., folder, prec) %>%
-  dplyr::select(-ID) %>%
-  t() %>%
-  as.data.frame() %>%
-  rename_with(~c(paste('prec',seq(1:14),sep='.')))
-
 ### cloud
 cloud = t %>%
   ungroup() %>%
@@ -127,7 +115,6 @@ fraction = t %>%
 
 oc = list(temp = temp,
           wdsp = wdsp,
-          prec = prec,
           cloud = cloud,
           fraction = fraction)
 
