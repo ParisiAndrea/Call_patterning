@@ -41,16 +41,20 @@ ggsave('Plot_int.pdf',
        units = 'mm',
        dpi = 600)
 
-p3 = ggarrange(p,p2,
-               ncol = 1)
+p3 = ggarrange(p,
+               p2,
+               ncol = 1,
+               labels = c('','*'),
+               font.label = list(size = 13, color = "grey20"))
 
+p3 
 
 #save
 ggsave('Figure3.pdf',
        p3,
        path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
-       width = 380,
-       height = 200,
+       width = 400,
+       height = 180,
        units = 'mm',
        dpi = 800)
 #END

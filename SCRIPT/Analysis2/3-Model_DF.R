@@ -7,7 +7,6 @@ library(unmarked)
   t$prec = scale(t$prec)
   t$latitude = scale(t$latitude)
   t$fraction = scale(t$fraction)
-  b$grass = scale(b$grass)
 }
 
 #detection
@@ -51,19 +50,6 @@ elc = t %>%
   as.data.frame() %>%
   dplyr::select(1) %>%
   rename_with(~'elc')
-
-#grass
-grass = b %>%
-  ungroup() %>%
-  dplyr::select(folder,grass) %>%
-  group_by(folder) %>%
-  mutate(ID = 1:n()) %>%
-  spread(., folder, grass) %>%
-  dplyr::select(-ID) %>%
-  t() %>%
-  as.data.frame() %>%
-  dplyr::select(1) %>%
-  rename_with(~'grass')
 
 ### temperature
 temp = t %>%

@@ -9,7 +9,7 @@ smm = f %>%
   group_by(folder) %>%
   summarise(total_call = sum(call_duration)/3600)
 
-mean(smm$total_call)
+sum(smm$total_call)
 
 sm = data.frame(
   'Deployment' = u$folder,

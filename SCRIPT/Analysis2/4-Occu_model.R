@@ -1,4 +1,4 @@
-sc = cbind(lat, elc, grass)
+sc = cbind(lat, elc)
 
 ufo = unmarkedFrameOccu(y = det, siteCovs = sc, obsCovs = oc)
 
