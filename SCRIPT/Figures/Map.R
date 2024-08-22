@@ -25,13 +25,16 @@ recs = fortify(recs)
 ##GALWAY
 gal_shp = readOGR('./galway.shp')
 
+gal_shp = aggregate(gal_shp)
+
 gal_shp = spTransform(gal_shp, CRS('EPSG: 29902'))
 
 gal_shp = fortify(gal_shp)
 
+
 gal <- p + 
   geom_polygon(data=gal_shp, aes(x=long, y=lat, group=group), 
-               colour='grey80', fill="grey80") +
+               colour='black', fill="grey80") +
   geom_point(data=recs[population == 'gal'], 
              aes(x=coords.x1, y=coords.x2), fill = '#BD9D5E', colour="black", pch = 21, size = 4) +
   ggsn::scalebar(gal_shp, dist_unit = 'km', dist = 1, transform = F, 
@@ -43,13 +46,15 @@ gal
 ###MULLET
 mul_shp = readOGR('./mullet.shp')
 
+mul_shp = aggregate(mul_shp)
+
 mul_shp = spTransform(mul_shp, CRS('EPSG: 29902'))
 
 mul_shp = fortify(mul_shp)
 
 mul <- p + 
   geom_polygon(data=mul_shp, aes(x=long, y=lat, group=group), 
-               colour='grey80', fill="grey80") +
+               colour='black', fill="grey80") +
   geom_point(data=recs[population == 'mul'], 
              aes(x=coords.x1, y=coords.x2, size = n_site), fill = '#BD9D5E', colour="black", pch = 21) +
   scale_size_discrete('Deployments',range = c(6,4)) +
@@ -62,13 +67,15 @@ mul
 ##W_DONEGAL
 wdo_shp = readOGR('./donegal_w.shp')
 
+wdo_shp = aggregate(wdo_shp)
+
 wdo_shp = spTransform(wdo_shp, CRS('EPSG: 29902'))
 
 wdo_shp = fortify(wdo_shp)
 
 wdo <- p + 
   geom_polygon(data=wdo_shp, aes(x=long, y=lat, group=group), 
-               colour='grey80', fill="grey80") +
+               colour='black', fill="grey80") +
   geom_point(data=recs[population == 'wdo'], 
              aes(x=coords.x1, y=coords.x2), fill = '#BD9D5E', colour="black", pch = 21, size= 4) +
   ggsn::scalebar(wdo_shp, dist_unit = 'km', dist = 2, transform = F, 
@@ -80,13 +87,15 @@ wdo
 ###e_donegal
 edo_shp = readOGR('./donegal_e.shp')
 
+edo_shp = aggregate(edo_shp)
+
 edo_shp = spTransform(edo_shp, CRS('EPSG: 29902'))
 
 edo_shp = fortify(edo_shp)
 
 edo <- p + 
   geom_polygon(data=edo_shp, aes(x=long, y=lat, group=group), 
-               colour='grey80', fill="grey80") +
+               colour='black', fill="grey80") +
   geom_point(data=recs[population == 'edo'], 
              aes(x=coords.x1, y=coords.x2, size = n_site), fill = '#BD9D5E', colour="black", pch = 21) +
   scale_size_discrete('Deployments',range = c(6,4)) +
@@ -107,9 +116,9 @@ nire_shp = spTransform(nire_shp, CRS('EPSG: 29902'))
 nire_shp = fortify(nire_shp)
 
 ire <- p + geom_polygon(data=ire_shp, aes(x=long, y=lat, group=group), 
-                        colour='grey80', fill="grey80") +
+                        colour='black', fill="grey80") +
   geom_polygon(data=nire_shp, aes(x=long, y=lat, group=group), 
-               colour='grey80', fill="grey80") +
+               colour='black', fill="grey80") +
   geom_polygon(data=gal_shp, aes(x=long, y=lat, group=group), 
                colour='#BD9D5E', fill="#BD9D5E") +
   geom_polygon(data=mul_shp, aes(x=long, y=lat, group=group), 
