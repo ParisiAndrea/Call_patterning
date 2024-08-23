@@ -48,7 +48,7 @@ p = ggplot(pl, aes(x,fit)) + #exclude NS effects
              ncol = 5,
              labeller = as_labeller(c('s(temp2)'='Temperature (°C) ***',
                                       's(wdsp)'='Wind speed (km/h) ***',
-                                      's(fraction)'='Moon fraction*',
+                                      's(fraction)'='Lunar fraction*',
                                       's(hour)'='Hour ***',
                                       's(days)' = 'Days ***'))) +
   ylab('Log(Call duration)') +

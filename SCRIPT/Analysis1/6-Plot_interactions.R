@@ -24,7 +24,7 @@ p2 = ggplot(px2, aes(var1,var2, color = call_duration)) +
   geom_point() +
   scale_color_viridis(name = 'Log(Call duration)',
                       breaks = seq(-.4,.8,.4)) +
-  scale_x_continuous(name = 'Moon fraction') + 
+  scale_x_continuous(name = 'Lunar fraction') + 
   scale_y_continuous(name = 'Cloud cover (%)') + 
   theme_ggeffects(15) +
   theme(legend.position = 'bottom',
@@ -33,13 +33,13 @@ p2 = ggplot(px2, aes(var1,var2, color = call_duration)) +
 p2
 
 #save
-ggsave('Plot_int.pdf',
-       p2,
-       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
-       width = 200,
-       height = 140,
-       units = 'mm',
-       dpi = 600)
+#ggsave('Plot_int.pdf',
+ #      p2,
+  #     path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
+   #    width = 200,
+    #   height = 140,
+     #  units = 'mm',
+      # dpi = 600)
 
 p3 = ggarrange(p,
                p2,

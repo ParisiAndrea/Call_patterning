@@ -139,14 +139,14 @@ ire <- p + geom_polygon(data=ire_shp, aes(x=long, y=lat, group=group),
 ire
 
 ###MERGE
-mp = ggarrange(ggarrange(edo,
-                         wdo,
+mp = ggarrange(ggarrange(gal,
                          mul,
-                         gal,
+                         wdo,
+                         edo,
                          legend = 'bottom',
                          common.legend = T,
                          ncol = 2, nrow = 2,
-                         labels = c('D','C','B','A'),
+                         labels = c('A','B','C','D'),
                          font.label = list(size = 20),
                          align = 'v'),
                widths = c(.8,.3),
