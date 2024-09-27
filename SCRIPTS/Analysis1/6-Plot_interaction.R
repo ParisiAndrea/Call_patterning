@@ -50,11 +50,11 @@ p3 = ggarrange(p,
 p3 
 
 #save
-ggsave('Figure3.pdf',
+ggsave('Figure3.png',
        p3,
-       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
-       width = 400,
-       height = 180,
+       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS',
+       width = 280,
+       height = 140,
        units = 'mm',
        dpi = 800)
 #END

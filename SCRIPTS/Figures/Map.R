@@ -155,9 +155,9 @@ mp = ggarrange(ggarrange(gal,
 
 print(mp)
 
-ggsave('Figure1.pdf',
+ggsave('Figure1.png',
        mp,
-       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
+       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS',
        width = 300,
        height = 180,
        units = 'mm',

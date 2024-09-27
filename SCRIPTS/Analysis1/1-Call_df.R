@@ -4,8 +4,8 @@ sapply(c('data.table','dplyr','tidyr','lubridate','ggpubr'),
        character.only=T)
 
 #read CSV
-k = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/call_data.csv')
-p = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/deploy_info.csv') %>%
+k = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/call_data.csv')
+p = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/deploy_info.csv') %>%
   mutate(folder = paste(batch,sd_slotA,sep = '_')) %>% # same variable as in k for merging
   dplyr::select(c(folder,site)) #keep relevant columns only
 

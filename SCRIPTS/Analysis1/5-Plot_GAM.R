@@ -29,6 +29,8 @@ for (i in 1:(length(px)-2)) { #for each smooth (minus random effect and 3 intera
 
 setDT(pl)
 
+pl = pl[smooth != 's(fraction)']
+
 pl$smooth = factor(pl$smooth, levels = c('s(temp2)',
                              's(wdsp)',
                              's(fraction)',
