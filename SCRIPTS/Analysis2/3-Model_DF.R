@@ -1,5 +1,7 @@
 library(unmarked)
 
+#rescale variables
+
 {
   t$temp2 = scale(t$temp2)
   t$cloud = scale(t$cloud)
@@ -23,8 +25,6 @@ det = t %>%
   as.data.frame() %>%
   rename_with(~c(paste('y',seq(1:14),sep='.')))
 
-det
-
 #latitude (fixed covariate)
 lat = t %>%
   ungroup() %>%
@@ -37,19 +37,6 @@ lat = t %>%
   as.data.frame() %>%
   dplyr::select(1) %>%
   rename_with(~'lat')
-
-#elc (fixed covariate)
-elc = t %>%
-  ungroup() %>%
-  dplyr::select(folder,elc) %>%
-  group_by(folder) %>%
-  mutate(ID = 1:n()) %>%
-  spread(., folder, elc) %>%
-  dplyr::select(-ID) %>%
-  t() %>%
-  as.data.frame() %>%
-  dplyr::select(1) %>%
-  rename_with(~'elc')
 
 ### temperature
 temp = t %>%
@@ -99,6 +86,7 @@ fraction = t %>%
   as.data.frame() %>%
   rename_with(~c(paste('fraction',seq(1:14),sep='.')))
 
+#combine in a list
 oc = list(temp = temp,
           wdsp = wdsp,
           cloud = cloud,

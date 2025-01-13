@@ -3,6 +3,9 @@ library(MuMIn)
 mx_comb = dredge(mx)
 head(mx_comb,6)
 
+#fw = as.data.frame(mx_comb)
+#fwrite(fw, 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/model_selection.csv')
+
 #run gam with only + varables
 mx2 = gam(call_duration ~
             s(temp2, bs ='cr', k = 20) +
@@ -37,7 +40,7 @@ res = simulateResiduals(mx2, plot = T, re.form = NULL)
   plotResiduals(res, form = g$fraction)
   plotResiduals(res, form = g$days)
   plotResiduals(res, form = g$hour)
-  
+  plotResiduals(res, form = g$site)
 }
 
 DHARMa::testDispersion(res)

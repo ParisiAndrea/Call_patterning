@@ -3,7 +3,8 @@ sapply(c('data.table','dplyr','suncalc','lubridate','fitdistrplus','MuMIn','boot
        require, 
        character.only=T)
 
-p = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/input/deploy_info.csv') %>%
+#open deployment info CSV
+p = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/deploy_info.csv') %>%
   mutate(folder = paste(batch,sd_slotA,sep = '_'))
 
 #new dataframe to create a time sequence between deployment start and end
@@ -18,7 +19,7 @@ u = p %>%
 
 head(u)
 
-#new empty df
+#new empty df to store results
 z = data.frame()
 
 for (i in 1:nrow(u)) {

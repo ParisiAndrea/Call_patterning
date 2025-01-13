@@ -1,18 +1,26 @@
-sc = cbind(lat, elc)
+#build unmarked dataset with site and observation covariates
 
-ufo = unmarkedFrameOccu(y = det, siteCovs = sc, obsCovs = oc)
+ufo = unmarkedFrameOccu(y = det, siteCovs = lat, obsCovs = oc)
 
+#check
 ufo
 summary(ufo)
 
+#global model
 fm = occu(formula = ~ temp + wdsp + cloud*fraction
           ~ 1,
           data = ufo)
 
+#check
 summary(fm)
 plot(residuals(fm))
-dredge(fm)
 
+#model selection
+dredge(fm) 
+
+#fwrite(x, 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/model_selection2.csv')
+
+#best model
 fm1 = occu(formula = ~ wdsp + cloud + fraction 
           ~ 1,
           data = ufo)

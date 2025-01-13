@@ -5,6 +5,7 @@ sapply(c('data.table','dplyr','mgcv','tidyverse','sjPlot','performance',
        character.only=T)
 
 #reformat variables
+g$folder = factor(g$folder)
 g$site = factor(g$site)
 g$days = as.numeric(g$days)
 g$hour = as.numeric(hour(g$time))
@@ -20,7 +21,7 @@ mx = bam(call_duration ~
            s(days, bs= 'cr',k=20) +
            ti(cloud,temp2,bs = c('cr','cr')) +
            ti(fraction,cloud, bs = c('cr','cr')) +
-           s(site, bs = 're'),
+           s(site, bs = c('re')),
          data = g,
          knots=list(hour=c(0,23)),
          na.action = "na.fail",

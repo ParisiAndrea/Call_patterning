@@ -1,5 +1,7 @@
 ####
 
+#transform variables into one night (23->04) values
+
 t = z %>%
   filter(hour %in% 22:23 | hour %in% 0:4) %>%
   group_by(folder,days,hour) %>%
@@ -9,12 +11,13 @@ t = z %>%
   mutate(hour = factor(hour, levels = c(0,1,2,3,4,22,23))) %>%
   arrange(site,days,hour)
 
-#create fake date 
+#create fake date to combine night and morning values
 t = t %>%
   group_by(folder) %>%
   mutate(fake_date = case_when(hour == 22 | hour == 23 ~ days+1,
                                TRUE ~ days))
-    
+
+#sum calling activity and average weather variables
 t = t %>%
   group_by(folder,site,fake_date) %>%
   mutate(night_ID = cur_group_id()) %>%
