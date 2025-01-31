@@ -1,6 +1,6 @@
 #build unmarked dataset with site and observation covariates
 
-ufo = unmarkedFrameOccu(y = det, siteCovs = lat, obsCovs = oc)
+ufo = unmarkedFrameOccu(y = det, siteCovs = 1, obsCovs = oc)
 
 #check
 ufo
@@ -17,8 +17,6 @@ plot(residuals(fm))
 
 #model selection
 dredge(fm) 
-
-#fwrite(x, 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/model_selection2.csv')
 
 #best model
 fm1 = occu(formula = ~ wdsp + cloud + fraction 
@@ -40,8 +38,6 @@ b1 = ggplot(plotEffectsData(fm1, 'det', 'wdsp'), aes(covariateValue, Predicted))
   ylab('Detection probability') +
   theme_ggeffects(15)
 
-b1
-
 b2 = ggplot(plotEffectsData(fm1, 'det', 'cloud'), aes(covariateValue, Predicted)) +
   geom_line(linewidth = 1.5) +
   geom_ribbon(aes(x= covariateValue,
@@ -52,8 +48,6 @@ b2 = ggplot(plotEffectsData(fm1, 'det', 'cloud'), aes(covariateValue, Predicted)
   xlab('Cloud cover') +
   ylab('') +
   theme_ggeffects(15)
-
-b2
 
 b3 = ggplot(plotEffectsData(fm1, 'det', 'fraction'), aes(covariateValue, Predicted)) +
   geom_line(linewidth = 1.5) +
@@ -66,12 +60,7 @@ b3 = ggplot(plotEffectsData(fm1, 'det', 'fraction'), aes(covariateValue, Predict
   ylab('') +
   theme_ggeffects(15)
 
-b3
-
-
-gratia::draw(fm1, 'det')
-
-
+#combine plots
 bb = ggarrange(b1,b2,b3, 
           nrow = 1)
 
@@ -80,7 +69,7 @@ bb
 #save
 ggsave('Plot_occu.pdf',
        bb,
-       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
+       path = './GRAPHS/MS',
        width = 300,
        height = 100,
        units = 'mm',

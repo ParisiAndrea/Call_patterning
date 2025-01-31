@@ -6,7 +6,6 @@ library(unmarked)
   t$temp2 = scale(t$temp2)
   t$cloud = scale(t$cloud)
   t$wdsp = scale(t$wdsp)
-  t$prec = scale(t$prec)
   t$latitude = scale(t$latitude)
   t$fraction = scale(t$fraction)
 }

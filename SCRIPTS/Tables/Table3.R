@@ -45,7 +45,7 @@ skt
 
 skt = gsub(' 0.000 ', '<0.001', skt)
 
-skt %>% save_kable(file = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS/Table3.html', self_contained = T)
+skt %>% save_kable(file = './GRAPHS/MS/Table3.html', self_contained = T)
 
          
 
@@ -75,4 +75,4 @@ pkt
 kbl(c(pkt, skt),
     escape = F)
 
-#%>% save_kable(file = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS/Table.html', self_contained = T)
+#%>% save_kable(file = './GRAPHS/MS/Table.html', self_contained = T)

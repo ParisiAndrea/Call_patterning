@@ -45,4 +45,4 @@ kw = wtab %>%
 
 kw
 
-#kw %>% save_kable(file = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS/Table1.html', self_contained = T)
+#kw %>% save_kable(file = './GRAPHS/MS/Table1.html', self_contained = T)

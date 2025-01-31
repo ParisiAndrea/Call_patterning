@@ -30,17 +30,6 @@ p2 = ggplot(px2, aes(var1,var2, color = call_duration)) +
   theme(legend.position = 'bottom',
         legend.text = element_text(size = 10))
 
-p2
-
-#save
-#ggsave('Plot_int.pdf',
- #      p2,
-  #     path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
-   #    width = 200,
-    #   height = 140,
-     #  units = 'mm',
-      # dpi = 600)
-
 p3 = ggarrange(p,
                p2,
                ncol = 1,
@@ -52,7 +41,7 @@ p3
 #save
 ggsave('Figure3.png',
        p3,
-       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS',
+       path = './GRAPHS',
        width = 280,
        height = 140,
        units = 'mm',

@@ -63,7 +63,7 @@ p
 #save
 ggsave('Plot.pdf',
        p,
-       path = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS',
+       path = './GRAPHS/MS',
        width = 350,
        height = 70,
        units = 'mm',

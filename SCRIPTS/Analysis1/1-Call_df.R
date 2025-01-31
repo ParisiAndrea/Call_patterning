@@ -4,8 +4,8 @@ sapply(c('data.table','dplyr','tidyr','lubridate','ggpubr'),
        character.only=T)
 
 #read CSV
-k = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/call_data.csv')
-p = fread('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/CSV/deploy_info.csv') %>%
+k = fread('./CSV/call_data.csv')
+p = fread('./CSV/deploy_info.csv') %>%
   mutate(folder = paste(batch,sd_slotA,sep = '_')) %>% # same variable as in k for merging
   dplyr::select(c(folder,site)) #keep relevant columns only
 
@@ -30,16 +30,12 @@ f = k %>%
   
   #define order and arrangement
   dplyr::select(site,folder,file_name,time_start,time_end,call_duration) %>%
-  
-  arrange(folder,time_start)
+    arrange(folder,time_start)
 
+#check
 head(f)
 
 #CREATE rounded 1-HOUR TIME BIN 
 f$time = round_date(f$time_start, unit="1 hour")
-#f$int_b = round_date(f$time_end, unit="1 hour")
-
-#f$time = round_date(f$time_start, unit="1 hour")
-#f$hour = as.factor(hour(f$time))
 
 #END

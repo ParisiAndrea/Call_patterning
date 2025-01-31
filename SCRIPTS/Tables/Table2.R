@@ -38,6 +38,6 @@ smk = sm %>%
 
 smk
 
-#smk %>% save_kable(file = 'C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/GRAPHS/MS/Table2.html', self_contained = T)
+#smk %>% save_kable(file = './GRAPHS/MS/Table2.html', self_contained = T)
 
 #END

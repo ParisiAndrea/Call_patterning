@@ -3,7 +3,8 @@ sapply(c('data.table','dplyr','suncalc','lubridate','ncdf4','stringr'),
        require, 
        character.only=T)
 
-setwd('C:/Users/G00399072/OneDrive - Atlantic TU/Documents/Call_patterning/WEATHER_nc')
+#set working folder
+setwd('./WEATHER_nc')
 
 #get all files in the weather directory
 dd = dir(getwd(),
@@ -54,7 +55,8 @@ rm(x)
 #keep relevant variables only
 e = dplyr::select(e, c(site,time,temp2:wdsp))
 
-head(e) # N=
+#check
+head(e)
 
 #add ID column
 setDT(e)[, ID := .I]
@@ -66,17 +68,17 @@ colnames(m)[1] <-'time'
 #add ID column
 setDT(m)[, ID := .I]
 
+#check both
 head(m)
 head(e)
 
 #merge by time and ID
 a = left_join(e,m,by=c('ID','time'))
 
+#delete ID
 a[,ID:=NULL]
 
-#a$date = date(a$time)
-#a$hour = as.factor(hour(a$time))
-
+#check
 head(a)
 
 #END
